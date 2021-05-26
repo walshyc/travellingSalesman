@@ -1,12 +1,12 @@
 import java.io.*;
 import java.util.*;
 
-public class App {
+public class New {
     public static int shortestDistance = Integer.MAX_VALUE;
     public static ArrayList<Integer> visitedGlobal = new ArrayList<Integer>();
 
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(new File("C:\\Users\\conor\\Google Drive\\College\\CS211\\sample.csv"));
+        Scanner sc = new Scanner(new File("C:\\Users\\conor\\Google Drive\\College\\CS211\\sample2.csv"));
         List<List<String>> rows = new ArrayList<>();
         sc.useDelimiter(","); // sets the delimiter pattern
         while (sc.hasNextLine()) // returns a boolean value
@@ -23,7 +23,7 @@ public class App {
             System.out.println();
         }
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10; i++) {
             Collections.shuffle(rows);
             calculate(rows);
         }
@@ -60,6 +60,13 @@ public class App {
                     // matrix[i][j] = distance;
                 }
             }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + ",");
+            }
+            System.out.println();
         }
 
         ArrayList<Integer> visited = new ArrayList<Integer>();
