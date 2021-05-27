@@ -1,25 +1,11 @@
-import javax.swing.JFrame;
-
 import javax.swing.*;
 import java.awt.*;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JButton;
+import java.util.*;
 import java.awt.event.ActionListener;
-
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
 
-
-public class NewWindow {
+public class TSP {
 
 	// initialise some global variables
 	private JFrame frmApachePizzaDelivery;
@@ -35,7 +21,7 @@ public class NewWindow {
 	public static void main(String[] args) {
 
 		// creates a new window and displays it on screen
-		NewWindow window = new NewWindow();
+		TSP window = new TSP();
 		window.frmApachePizzaDelivery.setVisible(true);
 
 	}
@@ -164,7 +150,7 @@ public class NewWindow {
 	}
 
 	// new window class
-	public NewWindow() {
+	public TSP() {
 		initialize();
 	}
 
@@ -191,7 +177,7 @@ public class NewWindow {
 		frmApachePizzaDelivery.getContentPane().add(computeButton);
 		
 		// reference to the map
-		String mapImage = "/map2.png";
+		String mapImage = "/map.png";
 		URL url = getClass().getResource(mapImage);
 
 		ImageIcon imageIcon = new ImageIcon(url); // load image as image icon
@@ -229,6 +215,7 @@ public class NewWindow {
 		// action listener for when the compute button is pressed
 		computeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				long startTime = System.nanoTime();
 				//solutionText.setText("loading...");
 				// gets the inputed text as a string
 				String input = textArea.getText();
@@ -244,10 +231,14 @@ public class NewWindow {
 					// add the address to the row array list
 					rows.add(address);
 				}
-				// loop thousands of times to get the best solution
-				for (int i = 0; i < 10000; i++) {
-					Collections.shuffle(rows); // shuffle the rows each time
+				// variables to keep track of the time
+				long endTime = 0;
+				long timeElapsed = 0;
+				// loop that runs for 9 seconds to find the best route
+				while ((timeElapsed / 1000000) < 9000) {
 					calculate(rows); // calculate the best route
+					endTime = System.nanoTime();
+					timeElapsed = endTime - startTime; // update the elapsed time
 				}
 
 				String output = ""; // initialise the output 
@@ -270,8 +261,8 @@ public class NewWindow {
 				// reset the global variables so that a new route can be calculated
 				visitedGlobalAddresses.clear();
 				rows.clear();
-				shortestDistance = Integer.MAX_VALUE;
-				globalDelay = Integer.MAX_VALUE;
+				shortestDistance = Double.MAX_VALUE;
+				globalDelay = Double.MAX_VALUE;
 
 			}
 
